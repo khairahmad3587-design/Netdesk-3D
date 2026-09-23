@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NetDesk 3D — Network Command Center</title>
+<meta name="description" content="Futuristic IT support and network operations dashboard concept.">
+<style>
+:root{--bg:#050914;--panel:rgba(10,20,38,.72);--line:rgba(113,232,255,.18);--text:#edfaff;--muted:#7f9db2;--cyan:#62e9ff;--blue:#5878ff;--green:#55f3a6;--violet:#a477ff;--danger:#ff6b91}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 75% 12%,#112756 0,transparent 25%),radial-gradient(circle at 20% 75%,#151b42 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(98,233,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(98,233,255,.035) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 90%);pointer-events:none}
+#network{position:fixed;inset:0;z-index:-1;opacity:.8}.app{min-height:100vh;display:grid;grid-template-columns:240px 1fr}.side{position:sticky;top:0;height:100vh;padding:26px 18px;border-right:1px solid var(--line);background:rgba(4,9,20,.74);backdrop-filter:blur(18px)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;letter-spacing:-.5px;margin:0 8px 32px}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--cyan),var(--blue));box-shadow:0 0 32px rgba(98,233,255,.35);display:grid;place-items:center;color:#04101d}.logo:after{content:"N";font-weight:950}
+.nav{display:grid;gap:8px}.nav a{color:var(--muted);text-decoration:none;padding:12px 14px;border-radius:12px;display:flex;gap:11px;align-items:center;font-size:14px}.nav a:hover,.nav a.active{color:white;background:linear-gradient(90deg,rgba(98,233,255,.14),rgba(88,120,255,.08));border:1px solid rgba(98,233,255,.12)}.nav i{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 12px currentColor}.side-foot{position:absolute;bottom:24px;left:18px;right:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}.online{color:var(--green);font-size:12px}.main{padding:28px 34px 60px;max-width:1600px;width:100%;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase}.top h1{font-size:30px;margin:5px 0 0;letter-spacing:-1px}.user{display:flex;gap:10px;align-items:center}.avatar{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#173b57,#192252);display:grid;place-items:center;border:1px solid var(--line);font-weight:800}
+.hero{position:relative;min-height:330px;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:linear-gradient(120deg,rgba(9,22,40,.93),rgba(8,13,31,.62));box-shadow:0 30px 80px rgba(0,0,0,.28);padding:42px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center}.hero:after{content:"";position:absolute;width:420px;height:420px;border:1px solid rgba(98,233,255,.16);border-radius:50%;right:-60px;top:-95px;box-shadow:0 0 100px rgba(88,120,255,.13),inset 0 0 90px rgba(98,233,255,.04)}
+.hero h2{font-size:48px;line-height:1.02;letter-spacing:-2px;margin:10px 0 16px;max-width:650px}.hero h2 span{background:linear-gradient(90deg,var(--cyan),#b4c3ff);-webkit-background-clip:text;color:transparent}.hero p{color:#9ab3c5;max-width:620px;line-height:1.7}.actions{display:flex;gap:12px;margin-top:24px}.btn{padding:12px 17px;border-radius:12px;border:1px solid var(--line);color:white;text-decoration:none;font-size:13px;background:rgba(255,255,255,.04)}.btn.primary{background:linear-gradient(135deg,#1dbdd8,#536cff);border:0;box-shadow:0 12px 34px rgba(48,135,255,.25)}
+.orbit{height:250px;position:relative;display:grid;place-items:center;z-index:1}.core{width:100px;height:100px;border-radius:30%;background:radial-gradient(circle at 35% 30%,#c8fbff,#55dff6 20%,#2449c9 70%,#0b1230);box-shadow:0 0 50px rgba(98,233,255,.45);animation:float 4s ease-in-out infinite;transform:rotate(15deg)}.ring{position:absolute;border:1px solid rgba(98,233,255,.27);border-radius:50%;animation:spin 14s linear infinite}.r1{width:210px;height:95px;transform:rotate(22deg)}.r2{width:240px;height:125px;transform:rotate(-30deg);animation-direction:reverse}.dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}.d1{top:48px;right:70px}.d2{bottom:45px;left:65px;background:var(--violet);box-shadow:0 0 18px var(--violet)}
+@keyframes float{50%{transform:translateY(-12px) rotate(24deg)}}@keyframes spin{to{transform:rotate(382deg)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.card{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(18px);border-radius:18px;padding:20px;box-shadow:inset 0 1px rgba(255,255,255,.03)}.stat small{color:var(--muted);font-size:12px}.stat strong{display:block;font-size:27px;margin:8px 0 5px}.trend{font-size:11px;color:var(--green)}.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}.title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.title-row h3{margin:0;font-size:16px}.pill{font-size:10px;padding:6px 9px;border-radius:999px;background:rgba(85,243,166,.08);color:var(--green);border:1px solid rgba(85,243,166,.18)}
+.topology{height:300px;position:relative;overflow:hidden;background:radial-gradient(circle at center,rgba(38,83,142,.22),transparent 60%)}.topology svg{position:absolute;inset:0;width:100%;height:100%}.topology line{stroke:rgba(98,233,255,.24);stroke-width:1}.node{position:absolute;width:50px;height:50px;border-radius:16px;background:#0b1930;border:1px solid rgba(98,233,255,.3);box-shadow:0 0 30px rgba(98,233,255,.08);display:grid;place-items:center;font-size:10px;color:#b8eff8}.node:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}.n1{left:46%;top:38%;width:66px;height:66px}.n2{left:14%;top:18%}.n3{right:13%;top:20%}.n4{left:18%;bottom:15%}.n5{right:18%;bottom:13%}.tickets{display:grid;gap:10px}.ticket{padding:12px;border-radius:13px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);display:grid;grid-template-columns:1fr auto;gap:5px}.ticket b{font-size:12px}.ticket span{font-size:10px;color:var(--muted)}.sev{font-size:9px!important;color:#ff9ab3!important}.bars{display:grid;gap:13px;margin-top:10px}.bar label{font-size:11px;color:var(--muted);display:flex;justify-content:space-between}.track{height:6px;border-radius:20px;background:#101b2e;margin-top:7px;overflow:hidden}.fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--blue),var(--cyan));animation:load 1.4s ease-out both}@keyframes load{from{width:0!important}}
+.footer{color:#617b8e;text-align:center;font-size:11px;margin-top:28px}
+@media(max-width:1000px){.app{grid-template-columns:76px 1fr}.side{padding:22px 12px}.brand span,.nav span,.side-foot{display:none}.brand{margin-left:7px}.nav a{justify-content:center}.main{padding:22px}.hero{grid-template-columns:1fr}.orbit{display:none}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.hero h2{font-size:40px}}
+@media(max-width:620px){.app{display:block}.side{display:none}.main{padding:16px}.top h1{font-size:24px}.hero{padding:27px 22px;min-height:360px}.hero h2{font-size:37px}.stats{grid-template-columns:1fr 1fr}.stat strong{font-size:22px}.user div:last-child{display:none}}
+</style>
+</head>
+<body>
+<canvas id="network"></canvas>
+<div class="app">
+<aside class="side">
+ <div class="brand"><div class="logo"></div><span>NetDesk 3D</span></div>
+ <nav class="nav">
+  <a class="active" href="#overview"><i></i><span>Overview</span></a>
+  <a href="#network-map"><i></i><span>Network Map</span></a>
+  <a href="#devices"><i></i><span>Devices</span></a>
+  <a href="#tickets"><i></i><span>Help Desk</span></a>
+  <a href="#security"><i></i><span>Security</span></a>
+  <a href="#settings"><i></i><span>Settings</span></a>
+ </nav>
+ <div class="side-foot"><div class="online">● CORE ONLINE</div><small style="color:#68859a">All monitoring services operational</small></div>
+</aside>
+<main class="main" id="overview">
+ <header class="top">
+  <div><div class="eyebrow">Network Operations Center</div><h1>Infrastructure Overview</h1></div>
+  <div class="user"><div class="avatar">KM</div><div><b style="font-size:12px">Administrator</b><br><span style="font-size:10px;color:#7894a8">Network Operations</span></div></div>
+ </header>
+ <section class="hero">
+  <div>
+   <div class="eyebrow">Live Network • Command Center</div>
+   <h2>See your infrastructure <span>as a living system.</span></h2>
+   <p>A premium 3D-inspired monitoring interface for IT support, network operations and security teams. Built as a modern dashboard concept with responsive glass UI and animated telemetry.</p>
+   <div class="actions"><a class="btn primary" href="#network-map">Explore Network</a><a class="btn" href="#tickets">View Incidents</a></div>
+  </div>
+  <div class="orbit"><div class="ring r1"></div><div class="ring r2"></div><div class="dot d1"></div><div class="dot d2"></div><div class="core"></div></div>
+ </section>
+ <section class="stats" id="devices">
+  <div class="card stat"><small>UPTIME</small><strong>99.98%</strong><span class="trend">▲ stable</span></div>
+  <div class="card stat"><small>NETWORK TRAFFIC</small><strong>8.42 Gb/s</strong><span class="trend">▲ 12.4%</span></div>
+  <div class="card stat"><small>ACTIVE DEVICES</small><strong>248</strong><span class="trend">● 241 healthy</span></div>
+  <div class="card stat"><small>OPEN TICKETS</small><strong>18</strong><span class="trend" style="color:#ff9ab3">4 urgent</span></div>
+ </section>
+ <section class="grid">
+  <div class="card" id="network-map">
+   <div class="title-row"><h3>Live Network Topology</h3><span class="pill">● REAL-TIME</span></div>
+   <div class="topology">
+    <svg viewBox="0 0 800 300" preserveAspectRatio="none"><line x1="400" y1="135" x2="135" y2="65"/><line x1="400" y1="135" x2="675" y2="70"/><line x1="400" y1="135" x2="160" y2="245"/><line x1="400" y1="135" x2="650" y2="245"/><line x1="135" y1="65" x2="160" y2="245"/><line x1="675" y1="70" x2="650" y2="245"/></svg>
+    <div class="node n1">CORE</div><div class="node n2">DC-01</div><div class="node n3">EDGE</div><div class="node n4">VPN</div><div class="node n5">CLOUD</div>
+   </div>
+  </div>
+  <div class="card" id="tickets">
+   <div class="title-row"><h3>Active Incidents</h3><span class="pill" style="color:#ff9ab3;border-color:#5b2638;background:#2b111b">4 URGENT</span></div>
+   <div class="tickets">
+    <div class="ticket"><div><b>VPN gateway latency</b><br><span>NET-2048 • 8 min ago</span></div><span class="sev">HIGH</span></div>
+    <div class="ticket"><div><b>Camera VLAN packet loss</b><br><span>SEC-1182 • 21 min ago</span></div><span class="sev">HIGH</span></div>
+    <div class="ticket"><div><b>Storage capacity warning</b><br><span>SYS-0944 • 37 min ago</span></div><span class="sev" style="color:#ffd27a!important">MED</span></div>
+   </div>
+   <div class="bars" id="security">
+    <div class="bar"><label><span>Security health</span><span>94%</span></label><div class="track"><div class="fill" style="width:94%"></div></div></div>
+    <div class="bar"><label><span>Server load</span><span>62%</span></label><div class="track"><div class="fill" style="width:62%"></div></div></div>
+    <div class="bar"><label><span>Storage</span><span>71%</span></label><div class="track"><div class="fill" style="width:71%"></div></div></div>
+   </div>
+  </div>
+ </section>
+ <div class="footer" id="settings">NetDesk 3D • Premium IT & Network Dashboard Concept • v2.0</div>
+</main>
+</div>
+<script>
+const c=document.getElementById('network'),x=c.getContext('2d');let w,h,dpr,pts=[],mouse={x:-9999,y:-9999};
+function resize(){dpr=Math.min(devicePixelRatio,2);w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';x.setTransform(dpr,0,0,dpr,0,0);pts=Array.from({length:Math.min(75,Math.floor(w/18))},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16}))}
+addEventListener('resize',resize);addEventListener('mousemove',e=>mouse={x:e.clientX,y:e.clientY});resize();
+function draw(){x.clearRect(0,0,w,h);for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,1.2,0,7);x.fillStyle='rgba(98,233,255,.35)';x.fill()}for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){let a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);if(d<125){x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.strokeStyle=`rgba(98,233,255,${.09*(1-d/125)})`;x.stroke()}}requestAnimationFrame(draw)}draw();
+document.querySelectorAll('.card').forEach(el=>{el.addEventListener('mousemove',e=>{let r=el.getBoundingClientRect(),rx=(e.clientY-r.top-r.height/2)/r.height*-2,ry=(e.clientX-r.left-r.width/2)/r.width*2;el.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`});el.addEventListener('mouseleave',()=>el.style.transform='')});
+</script>
+</body>
+</html>
